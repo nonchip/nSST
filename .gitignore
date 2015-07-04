@@ -1,0 +1,7 @@
+/.sublime-*
+*.md.html
+*.ycdef.h
+*.o
+
+/rf_protocol/librf_protocol.so
+/rf_protocol/test
