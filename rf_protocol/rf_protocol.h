@@ -16,16 +16,16 @@ struct packet {
   byte to;
   byte type;
   byte length;
-  byte* payload; // free(payload)
+  byte* payload;
   byte checksum;
   byte end; // '\0'
 };
 
 extern byte calculate_checksum(struct packet p);
 
-extern struct packet make_packet(byte from, byte to, byte type, byte length, byte* payload);
+extern struct packet make_packet(byte from, byte to, byte type, byte length, byte* payload); // free(packet.payload)
 
-extern int read_stream_to_packet(struct packet* outp,byte b);
+extern int read_stream_to_packet(struct packet* outp,byte b); // free(packet.payload)
 
 extern int packet_to_bytes(byte** outb,struct packet p); // free(outb)
 
