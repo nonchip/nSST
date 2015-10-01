@@ -1,5 +1,4 @@
 #include <string.h>
-#include <stdlib.h>
 #include "rf_protocol.h"
 
 byte calculate_checksum(struct packet p){

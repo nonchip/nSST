@@ -6,9 +6,13 @@
 int main(int argc, char const *argv[])
 {
   printf("making a packet from %d to %d type %d len %d payload %s\n",1,3,0,5,"Hello");
-  struct packet pack=make_packet(1, 3, 0, 5, "Hello");
   byte* raw;
+#if 0
+  struct packet pack=make_packet(1, 3, 0, 5, "Hello");
   int len=packet_to_bytes(&raw,pack);
+#else
+  int len=make_packet_bytes(&raw,1, 3, 0, 5, "Hello");
+#endif
   printf("packet length: %d\n", len);
   struct packet unpack;
   int i;

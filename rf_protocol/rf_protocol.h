@@ -1,6 +1,7 @@
 #ifndef _RF_PROTOCOL_H
 #define _RF_PROTOCOL_H
 
+#include <stdlib.h>
 #include <stdint.h>
 typedef uint8_t byte;
 
@@ -16,17 +17,24 @@ struct packet {
   byte to;
   byte type;
   byte length;
-  byte* payload;
+  byte* payload; // free(payload)
   byte checksum;
   byte end; // '\0'
 };
 
-byte calculate_checksum(struct packet p);
+extern byte calculate_checksum(struct packet p);
 
 extern struct packet make_packet(byte from, byte to, byte type, byte length, byte* payload);
 
 extern int read_stream_to_packet(struct packet* outp,byte b);
 
-extern int packet_to_bytes(byte** outb,struct packet p);
+extern int packet_to_bytes(byte** outb,struct packet p); // free(outb)
+
+int make_packet_bytes(byte** outb, byte from, byte to, byte type, byte length, byte* payload){ // free(outb)
+  struct packet p=make_packet(from, to, type, length, payload);
+  int len=packet_to_bytes(outb, p);
+  free((void*)p.payload);
+  return len;
+}
 
 #endif //_RF_PROTOCOL_H
