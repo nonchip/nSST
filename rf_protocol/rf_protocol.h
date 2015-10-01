@@ -31,9 +31,12 @@ extern int read_stream_to_packet(struct packet* outp,byte b);
 extern int packet_to_bytes(byte** outb,struct packet p); // free(outb)
 
 int make_packet_bytes(byte** outb, byte from, byte to, byte type, byte length, byte* payload){ // free(outb)
-  struct packet p=make_packet(from, to, type, length, payload);
-  int len=packet_to_bytes(outb, p);
-  free((void*)p.payload);
+  int len;
+  {
+    struct packet p=make_packet(from, to, type, length, payload);
+    len=packet_to_bytes(outb, p);
+    free((void*)p.payload);
+  }
   return len;
 }
 
