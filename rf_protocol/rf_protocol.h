@@ -23,10 +23,10 @@ struct packet {
 
 byte calculate_checksum(struct packet p);
 
-struct packet make_packet(byte from, byte to, byte type, byte length, byte* payload);
+extern struct packet make_packet(byte from, byte to, byte type, byte length, byte* payload);
 
-int read_stream_to_packet(struct packet* outp,byte b);
+extern int read_stream_to_packet(struct packet* outp,byte b);
 
-int packet_to_bytes(byte** outb,struct packet p);
+extern int packet_to_bytes(byte** outb,struct packet p);
 
 #endif //_RF_PROTOCOL_H

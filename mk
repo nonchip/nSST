@@ -8,5 +8,5 @@ for i in *.md
 cd rf_protocol
 gcc -c -Wall -Werror -fpic rf_protocol.c
 gcc -shared -o librf_protocol.so rf_protocol.o
-gcc -o test -lrf_protocol -L. test.c rf_protocol.h
+gcc -o test test.c -L. -lrf_protocol
 
