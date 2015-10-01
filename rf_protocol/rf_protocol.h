@@ -6,7 +6,7 @@ typedef uint8_t byte;
 
 #define PACKET_MAGIC ((byte*)"nSST")
 #define VERSION_MAJOR ((byte)0)
-#define VERSION_MINOR ((byte)0)
+#define VERSION_MINOR ((byte)1)
 
 #pragma pack(1)
 struct packet {
