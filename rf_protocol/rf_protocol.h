@@ -1,7 +1,6 @@
 #ifndef _RF_PROTOCOL_H
 #define _RF_PROTOCOL_H
 
-#include <stdlib.h>
 #include <stdint.h>
 typedef uint8_t byte;
 
@@ -30,14 +29,6 @@ extern int read_stream_to_packet(struct packet* outp,byte b);
 
 extern int packet_to_bytes(byte** outb,struct packet p); // free(outb)
 
-int make_packet_bytes(byte** outb, byte from, byte to, byte type, byte length, byte* payload){ // free(outb)
-  int len;
-  {
-    struct packet p=make_packet(from, to, type, length, payload);
-    len=packet_to_bytes(outb, p);
-    free(p.payload);
-  }
-  return len;
-}
+extern int make_packet_bytes(byte** outb, byte from, byte to, byte type, byte length, byte* payload); // free(outb)
 
 #endif //_RF_PROTOCOL_H

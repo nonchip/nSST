@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdlib.h>
 #include "rf_protocol.h"
 
 byte calculate_checksum(struct packet p){
@@ -108,5 +109,15 @@ int packet_to_bytes(byte** outb,struct packet p){
   memcpy(*outb+10,p.payload,p.length);
   (*outb)[10+p.length]=p.checksum;
   (*outb)[11+p.length]=p.end;
+  return len;
+}
+
+int make_packet_bytes(byte** outb, byte from, byte to, byte type, byte length, byte* payload){
+  int len;
+  {
+    struct packet p=make_packet(from, to, type, length, payload);
+    len=packet_to_bytes(outb, p);
+    free(p.payload);
+  }
   return len;
 }
