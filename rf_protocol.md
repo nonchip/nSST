@@ -1,8 +1,8 @@
 # Protocol specs
 
-we'll use a custom protocol on top of UART `8bit, 1par, >=2stop`.
+we'll use a custom protocol on top of UART `8bit, 0par, >=1stop`.
 
-Baudrate of the UART should be either user specified or (for duplex connections only) autoconfigured by starting with 300 and then performing a `type04` handshake.
+Baudrate of the UART should be either user specified or (for duplex connections only) autoconfigured by starting with `300` and then performing a `type04` handshake.
 
 ## Packet format
 
