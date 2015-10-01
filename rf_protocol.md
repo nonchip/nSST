@@ -1,6 +1,6 @@
 # Protocol specs
 
-we'll use a custom protocol on top of UART.
+we'll use a custom protocol on top of UART (8bit+parity).
 
 ## Packet format
 
@@ -17,7 +17,7 @@ we'll use a custom protocol on top of UART.
 Fields:
 
  * Magic
-   4 Bytes MUST BE `"nSST" (0x6E 0x53 0x53 0x54)`
+   4 Bytes MUST BE `"nSST" (0x6E 0x53 0x53 0x54)` 
  * Version
    2 Bytes MUST BE `0.0 (0x00 0x00)` as of this spec version
    when parsing a message with the correct "first" (=major) version byte it should be considered compatible while the second byte is for minor changes or feature flags.
