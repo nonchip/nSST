@@ -1,6 +1,6 @@
 # Protocol specs
 
-we'll use a custom protocol on top of UART `8bit, 0par, 1stop`.
+we'll use a custom protocol on top of UART `8bit, 0par, >=1stop`.
 
 Baudrate of the UART should be either user specified or (for duplex connections only) autoconfigured by starting with `300` and then performing a `type04` handshake.
 
@@ -13,7 +13,7 @@ Baudrate of the UART should be either user specified or (for duplex connections 
             +---------------+---------+------+----+------+--------+----------+------------+------------+
     Size    |       4       |    2    |   1  |  1 |   1  |    1   | (Length) |     1      |      1     |
             +---------------+---------+------+----+------+--------+----------+------------+------------+
-    Data    |     "nSST"    |  00 01  |   …  |  … |   …  |    …   |     …    |     …      |     00     |
+    Data    |     "nSST"    |  00 00  |   …  |  … |   …  |    …   |     …    |     …      |     00     |
             +---------------+---------+------+----+------+--------+----------+------------+------------+
 
 Fields:
@@ -21,7 +21,7 @@ Fields:
  * Magic
    4 Bytes MUST BE `ASCII"nSST" (0x6E 0x53 0x53 0x54)` 
  * Version
-   2 Bytes MUST BE `0.1 (0x00 0x01)` as of this spec version
+   2 Bytes MUST BE `0.0 (0x00 0x00)` as of this spec version
    when parsing a message with the correct "first" (=major) version byte it should be considered compatible while the second byte is for minor changes or feature flags.
  * From
    1 Byte packet source address (if sending device can't receive answer packets, set this to 0)
@@ -39,8 +39,6 @@ Fields:
    1 Byte MUST BE `0x00`
 
 ### Packet types
-
-Payload bit numbers are `0=LSB`.
 
 #### 01: Heartbeat
 e.g. for out-of-range detection, Ping
@@ -92,6 +90,6 @@ e.g. intensity, analog sensors, etc
     Payload Bits:
       0 1...
       | |
-      | +-- new baudrate divided 300
+      | +-- new baudrate divided by 300
       +---- 0: offer new baudrate, 1: accept new baudrate (send 3 times, then change rate; change rate if received; then ping and fallback to 300 on error)
 
