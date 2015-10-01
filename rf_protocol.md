@@ -1,6 +1,6 @@
 # Protocol specs
 
-we'll use a custom protocol on top of UART (8bit+parity).
+we'll use a custom protocol on top of UART `8bit, 1par, >=2stop`.
 
 Baudrate of the UART should be either user specified or (for duplex connections only) autoconfigured by starting with 300 and then performing a `type04` handshake.
 
@@ -19,7 +19,7 @@ Baudrate of the UART should be either user specified or (for duplex connections 
 Fields:
 
  * Magic
-   4 Bytes MUST BE `"nSST" (0x6E 0x53 0x53 0x54)` 
+   4 Bytes MUST BE `ASCII"nSST" (0x6E 0x53 0x53 0x54)` 
  * Version
    2 Bytes MUST BE `0.0 (0x00 0x00)` as of this spec version
    when parsing a message with the correct "first" (=major) version byte it should be considered compatible while the second byte is for minor changes or feature flags.
