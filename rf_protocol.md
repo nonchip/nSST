@@ -1,6 +1,6 @@
 # Protocol specs
 
-we'll use a custom protocol on top of UART (8bit+parity).
+we'll use a custom protocol on top of UART (8bit+parity, 300 baud initially, see below).
 
 ## Packet format
 
@@ -80,3 +80,14 @@ e.g. intensity, analog sensors, etc
       | |
       | +-- set to value
       +---- slot number
+
+#### 04: change baudrate
+
+    Type: 04
+    Length: 01
+    Payload Bits:
+      0 1...
+      | |
+      | +-- new baudrate divided 300
+      +---- 0: offer new baudrate, 1: accept new baudrate (send 3 times, then change rate; change rate if received; then ping and fallback to 300 on error)
+
