@@ -35,7 +35,7 @@ int make_packet_bytes(byte** outb, byte from, byte to, byte type, byte length, b
   {
     struct packet p=make_packet(from, to, type, length, payload);
     len=packet_to_bytes(outb, p);
-    free((void*)p.payload);
+    free(p.payload);
   }
   return len;
 }
